@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Blog — Junseok Kim</title>
+    <meta name="author" content="Junseok Kim">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+      fetch('config.json')
+        .then(r => r.json())
+        .then(config => {
+          const font = config.font;
+          if (!font) return;
+          if (font.google_fonts_url) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = font.google_fonts_url;
+            document.head.appendChild(link);
+          }
+          const family = [font.family, font.fallback].filter(Boolean).join(', ');
+          document.documentElement.style.setProperty('--blog-font', family);
+        });
+    </script>
+    <style>
+      :root { --blog-font: 'Lato', Verdana, Helvetica, sans-serif; }
+      body, td, th, tr, p, a, strong, h1, h2, h3 { font-family: var(--blog-font); }
+      .post-nav {
+        padding: 20px 0 10px 0;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 24px;
+        font-size: 0.9em;
+        color: #888;
+      }
+      .post-nav a {
+        color: #888;
+      }
+      #post-content {
+        line-height: 1.7;
+      }
+      #post-content h1 {
+        font-size: 1.6em;
+        margin-bottom: 4px;
+      }
+      #post-content h2 {
+        font-size: 1.2em;
+        margin-top: 28px;
+      }
+      #post-content p {
+        margin: 12px 0;
+      }
+      #post-content code {
+        background: #f4f4f4;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+      #post-content pre {
+        background: #f4f4f4;
+        padding: 14px;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+      #post-content pre code {
+        background: none;
+        padding: 0;
+      }
+      #post-content blockquote {
+        border-left: 3px solid #ccc;
+        margin: 0;
+        padding-left: 16px;
+        color: #555;
+      }
+      .post-date {
+        color: #888;
+        font-size: 0.88em;
+        margin-bottom: 24px;
+      }
+      #error-msg {
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <tr style="padding:0px">
+        <td style="padding:20px">
+          <div class="post-nav">
+            <a href="../">← Junseok Kim</a> &nbsp;/&nbsp; <a href="./">Blog</a>
+          </div>
+          <div id="post-content"><p style="color:#888;">Loading...</p></div>
+          <p id="error-msg" style="display:none;">Post not found.</p>
+        </td>
+      </tr>
+    </tbody></table>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug');
+
+      if (!slug) {
+        document.getElementById('post-content').innerHTML = '';
+        document.getElementById('error-msg').style.display = 'block';
+      } else {
+        // Load metadata from manifest for the date
+        Promise.all([
+          fetch('posts/manifest.json').then(r => r.json()),
+          fetch(`posts/${slug}.md`).then(r => {
+            if (!r.ok) throw new Error('not found');
+            return r.text();
+          })
+        ]).then(([manifest, markdown]) => {
+          const meta = manifest.find(p => p.slug === slug);
+          const html = marked.parse(markdown);
+
+          const dateHtml = meta
+            ? `<p class="post-date">${meta.date}</p>`
+            : '';
+
+          document.getElementById('post-content').innerHTML = dateHtml + html;
+
+          // Update page title from manifest or first h1
+          if (meta) document.title = `${meta.title} — Junseok Kim`;
+        }).catch(() => {
+          document.getElementById('post-content').innerHTML = '';
+          document.getElementById('error-msg').style.display = 'block';
+        });
+      }
+    </script>
+  </body>
+</html>

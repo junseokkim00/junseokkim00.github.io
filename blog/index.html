@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Blog — Junseok Kim</title>
+    <meta name="author" content="Junseok Kim">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+    <script>
+      fetch('config.json')
+        .then(r => r.json())
+        .then(config => {
+          const font = config.font;
+          if (!font) return;
+          if (font.google_fonts_url) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = font.google_fonts_url;
+            document.head.appendChild(link);
+          }
+          const family = [font.family, font.fallback].filter(Boolean).join(', ');
+          document.documentElement.style.setProperty('--blog-font', family);
+        });
+    </script>
+    <style>
+      :root { --blog-font: 'Lato', Verdana, Helvetica, sans-serif; }
+      body, td, th, tr, p, a, strong, h1, h2, h3 { font-family: var(--blog-font); }
+      .blog-header {
+        padding: 20px 0 10px 0;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 20px;
+      }
+      .blog-header a {
+        font-size: 0.9em;
+        color: #888;
+      }
+      .post-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .post-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .post-item:last-child {
+        border-bottom: none;
+      }
+      .post-title {
+        font-size: 1.1em;
+        font-weight: bold;
+        margin: 0 0 4px 0;
+      }
+      .post-title a {
+        text-decoration: none;
+        color: #1772d0;
+      }
+      .post-title a:hover {
+        text-decoration: underline;
+      }
+      .post-meta {
+        font-size: 0.85em;
+        color: #888;
+        margin-bottom: 6px;
+      }
+      .post-desc {
+        font-size: 0.95em;
+        color: #555;
+        margin: 0;
+      }
+      #loading {
+        color: #888;
+        padding: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <tr style="padding:0px">
+        <td style="padding:20px">
+          <div class="blog-header">
+            <a href="../">← Junseok Kim</a>
+            <h1 style="margin:8px 0 0 0;">Blog</h1>
+          </div>
+          <div id="loading">Loading posts...</div>
+          <ul class="post-list" id="post-list"></ul>
+        </td>
+      </tr>
+    </tbody></table>
+
+    <script>
+      fetch('posts/manifest.json')
+        .then(res => res.json())
+        .then(posts => {
+          const loading = document.getElementById('loading');
+          const list = document.getElementById('post-list');
+          loading.style.display = 'none';
+
+          if (posts.length === 0) {
+            list.innerHTML = '<p style="color:#888;">No posts yet.</p>';
+            return;
+          }
+
+          posts
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .forEach(post => {
+              const li = document.createElement('li');
+              li.className = 'post-item';
+              li.innerHTML = `
+                <p class="post-title"><a href="post.html?slug=${post.slug}">${post.title}</a></p>
+                <p class="post-meta">${post.date}</p>
+                ${post.description ? `<p class="post-desc">${post.description}</p>` : ''}
+              `;
+              list.appendChild(li);
+            });
+        })
+        .catch(() => {
+          document.getElementById('loading').textContent = 'Failed to load posts.';
+        });
+    </script>
+  </body>
+</html>
