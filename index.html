@@ -27,7 +27,7 @@
 		At Google I've worked on <a href="https://www.google.com/glass/start/">Glass</a>,  <a href="https://ai.googleblog.com/2014/04/lens-blur-in-new-google-camera-app.html">Lens Blur</a>, <a href="https://ai.googleblog.com/2014/10/hdr-low-light-and-high-dynamic-range.html">HDR+</a>, <a href="https://blog.google/products/google-ar-vr/introducing-next-generation-jump/">VR</a>, <a href="https://ai.googleblog.com/2017/10/portrait-mode-on-pixel-2-and-pixel-2-xl.html">Portrait Mode</a>, <a href="https://ai.googleblog.com/2020/12/portrait-light-enhancing-portrait.html">Portrait Light</a>, <a href="https://blog.google/products/maps/three-maps-updates-io-2022/">Maps</a>, and <a href="https://research.google/blog/bringing-3d-shoppable-products-online-with-generative-ai/">Shopping</a>.
 		I did my PhD at <a href="http://www.eecs.berkeley.edu/">UC Berkeley</a>, where I was advised by <a href="http://www.cs.berkeley.edu/~malik/">Jitendra Malik</a>.
 		I've received the <a href="https://www.thecvf.com/?page_id=413#YRA">PAMI Young Researcher Award</a>. -->
-                  Hello 👋! I am a Ph.D student at Seoul National University, advised by Prof. <a href="http://milab.snu.ac.kr/kjung/">Kyomin Jung</a>. My research interests lie in the areas of natural language processing and multimodal learning, with a focus on improving the reliability and reasoning capabilities of large language models.
+                  Hello 👋! I am a Ph.D student at Seoul National University, advised by Prof. <a href="http://milab.snu.ac.kr/kjung/">Kyomin Jung</a>. My research lies at the intersection of <strong>Interpretability</strong> and <strong>AI Safety</strong>, asking how large language models work internally, and using those insights to make them safer and more aligned.
                 </p>
                 <p style="text-align:center">
                   <a href="mailto:kim.junseok@snu.ac.kr">Email</a> &nbsp;/&nbsp;
@@ -53,6 +53,7 @@
                         <div class="scrollable-container">
                             <ul>
                                 <li><span class="news-date">[2026.05]</span>One paper has been accepted by ICML 2026 FoGen Workshop! <span class="new-badge">New</span></li>
+                                <li><span class="news-date">[2026.05]</span>One paper has been accepted by ICML 2026 AIWILD Workshop! <span class="new-badge">New</span></li>
                                 <li><span class="news-date">[2026.04]</span>One paper has been accepted by ACL 2026! See you in San Diego 🇺🇸</li>
                                 <li><span class="news-date">[2026.01]</span>One paper has been accepted by EACL 2026! See you in Rabat 🇲🇦</li>
                                 <li><span class="news-date">[2025.10]</span>One paper has been accepted by IJCNLP-AACL 2025! See you in Mumbai 🇮🇳</li>
@@ -71,9 +72,9 @@
               <td style="padding:16px;width:100%;vertical-align:middle">
                 <h2>Research</h2>
                 <p>
-                  My research investigates <strong>1) why large language models sound confident when they should not</strong>, and <strong> 2) how to make them reason and decide more reliably.</strong>
-I study inference strategies that allow models to regulate their decision processes based on confidence or response quality, rather than treating all responses as equally informative.
-To understand why such strategies succeed or fail, I increasingly focus on mechanistic interpretability, analyzing how internal representations influence evidence use in multimodal models and how these mechanisms can be adjusted to support more reliable reasoning
+                  My research asks two interconnected questions: <em>1) How do large language models actually work?</em> and <em>2) How can we make them more reliable and aligned?</em>
+I use mechanistic interpretability to trace how internal representations and attention mechanisms shape model behavior — including when and why models express unwarranted confidence.
+I then leverage these insights to design inference-time strategies that regulate model decisions based on reliability signals, with the broader goal of building AI systems that are trustworthy by design.
                 </p>
               </td>
             </tr>
@@ -106,7 +107,7 @@ To understand why such strategies succeed or fail, I increasingly focus on mecha
               </td>
               <td style="padding:8px;width:80%;vertical-align:middle">
                 <a href="https://openreview.net/forum?id=0QFO2JVBtN">
-                  <span class="papertitle">Personalized Privacy Control in LLMs via Attention Head Intervention</span>
+                  <span class="papertitle">Tool Selection Bias Amplifies in Multi-turn User–Agent Interactions</span>
                 </a>
                 <br>
                 <br>
@@ -117,6 +118,27 @@ To understand why such strategies succeed or fail, I increasingly focus on mecha
                 <a href="https://openreview.net/forum?id=0QFO2JVBtN">Paper</a>
                 <p></p>
                 <p>We propose Personalized Privacy Control in LLMs via Attention Head Intervention, a method that allows users to control the privacy of their interactions with large language models by intervening in the attention mechanisms.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:16px;width:20%;vertical-align:middle">
+                <img src="images/tool_bias.png" alt="blind-date" width="300" style="height:auto;">
+              </td>
+              <td style="padding:8px;width:80%;vertical-align:middle">
+                <a href="https://openreview.net/forum?id=a48agpdinD">
+                  <span class="papertitle">Tool Selection Bias Amplifies in Multi-turn User–Agent Interactions
+</span>
+                </a>
+                <br>
+                <br>
+                <a href="https://yny0506.github.io">Nakyeong Yang</a>, <strong>Junseok Kim</strong>, <a href="http://milab.snu.ac.kr/kjung/index.html">Kyomin Jung</a>
+                <br>
+                <em>ICML AIWILD Workshop</em>, 2026
+                <br>
+                <a href="https://openreview.net/forum?id=a48agpdinD">Paper</a>
+                <p></p>
+                <p>We propose Tool Selection Bias Amplifies in Multi-turn User–Agent Interactions, a study that examines how tool selection bias can amplify in multi-turn interactions between users and agents.</p>
               </td>
             </tr>
 
@@ -309,7 +331,7 @@ To understand why such strategies succeed or fail, I increasingly focus on mecha
               <td style="padding:0px">
                 <br>
                 <p style="text-align:center;font-size:small;">
-                   Last updated in May 2026. This page is based on <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron's website template</a>.
+                   Last updated in July 2026. This page is based on <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron's website template</a>.
                 </p>
               </td>
             </tr>
